@@ -10,13 +10,12 @@ class Node < Layer
         :absolute_bounding_box,
         :fills,
         :background_color,
-        :children,
         :visible,
         :style,
         :characters
     
     def initialize(raw)
-        super(raw)        
+        super(raw)
         @blend_mode = raw['blendMode']
         @absolute_bounding_box = Rectangle.new(raw['absoluteBoundingBox'])        
         @fills = raw['fills'].map { |f| Paint.new(f) }

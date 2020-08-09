@@ -1,10 +1,8 @@
-require_relative 'Layer'
 require_relative 'page'
+require_relative 'layer'
 
 class Document < Layer
 
-    attr_reader :children
-    
     def initialize(raw)
         super(raw)
 
@@ -14,4 +12,5 @@ class Document < Layer
             @children = []
         end                
     end
+    
 end

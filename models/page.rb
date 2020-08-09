@@ -4,7 +4,7 @@ require_relative 'layer'
 
 class Page < Layer
 
-    attr_reader :children, :background_color
+    attr_reader :background_color
     
     def initialize(raw)
         super(raw)        
