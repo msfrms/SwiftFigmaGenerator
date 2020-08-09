@@ -1,3 +1,3 @@
-require_relative 'models/asset'
+require_relative 'libs/figma/asset'
 
-Asset.new('oVYIje7etNDWPnMshHgqEI', "Routes").export_icons
+Figma::Asset.new('oVYIje7etNDWPnMshHgqEI', "Routes").export_icons
