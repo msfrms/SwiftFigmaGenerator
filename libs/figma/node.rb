@@ -19,17 +19,17 @@ module Figma
             super(raw)
             @blend_mode = raw['blendMode']
             @absolute_bounding_box = Rectangle.new(raw['absoluteBoundingBox'])        
-            @fills = raw['fills'].map { |f| Paint.new(f) }
+            @fills = raw['fills'].map { |f| Paint.new(f, style_id(raw['styles'], key='text')) }
             @background_color = Color.new(raw['backgroundColor']) if raw['backgroundColor'] != nil
             @visible = raw['visible']
             @children = raw['children'].map { |c| Node.new(c) } if raw['children'] != nil        
-            @style = TextStyle.new(raw['style'], style_id('styles')) if raw['style'] != nil
+            @style = TextStyle.new(raw['style'], style_id(raw['styles'], key='text')) if raw['style'] != nil
             @characters = raw['characters']
         end
     
-        def style_id(raw)
-            if raw['text'] != nil
-                return raw['text']
+        def style_id(raw, key)            
+            if raw != nil and raw[key] != nil
+                return raw[key]
             else
                 return nil
             end

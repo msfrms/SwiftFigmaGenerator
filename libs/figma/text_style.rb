@@ -16,7 +16,8 @@ module Figma
             :paragraph_indent,
             :italic,
             :letter_spacing,
-            :line_height_px
+            :line_height_px,
+            :alignment
     
         def initialize(raw, id)
             @id = id
@@ -29,6 +30,7 @@ module Figma
             @italic = raw['italic']
             @letter_spacing = raw['letterSpacing']
             @line_height_px = raw['lineHeightPx']
+            @alignment = raw['textAlignHorizontal']
         end
     end
 end
