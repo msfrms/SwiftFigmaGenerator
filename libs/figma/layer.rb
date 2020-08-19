@@ -1,3 +1,4 @@
+require_relative 'node'
 
 module Figma
     class Layer
@@ -26,6 +27,10 @@ module Figma
             else
                 return "#{parent.recursive_path_name} -> #{name}" 
             end           
+        end
+
+        def is_node?
+            self.class == Node
         end
     end
 end

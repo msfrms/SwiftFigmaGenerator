@@ -10,6 +10,14 @@ module Figma
             @style_type = raw['styleType']
             @description = raw['description']
         end
+
+        def is_fill?
+            @style_type == 'FILL'
+        end
+
+        def is_text?
+            @style_type == 'TEXT'
+        end
     end
     
     class File

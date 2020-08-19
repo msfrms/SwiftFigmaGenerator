@@ -15,7 +15,7 @@ module Figma
             texts = file.document
                 .flatten
                 .filter { |node|
-                    node.type == 'TEXT' and node.fills.filter { |fill| fill.type == "SOLID" }.size > 0
+                    node.is_text? and node.fills.filter(&:is_solid?).size > 0
                 }
                 .filter { |node|
                     is_exist_style = file.styles.key?(node.style.id)

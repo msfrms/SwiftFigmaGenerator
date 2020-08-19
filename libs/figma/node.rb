@@ -19,7 +19,7 @@ module Figma
             super(raw, parent)
             @blend_mode = raw['blendMode']
             @absolute_bounding_box = Rectangle.new(raw['absoluteBoundingBox'])        
-            @fills = raw['fills'].map { |f| Paint.new(f, style_id(raw['styles'], key='text')) } if raw['fills'] != nil
+            @fills = raw['fills'].map { |f| Paint.new(f, style_id(raw['styles'], key='fill'), parent=self) } if raw['fills'] != nil
             @background_color = Color.new(raw['backgroundColor']) if raw['backgroundColor'] != nil
             @visible = raw['visible']
             @children = raw['children'].map { |c| Node.new(c, parent=self) } if raw['children'] != nil
@@ -33,6 +33,10 @@ module Figma
             else
                 return nil
             end
+        end
+
+        def is_text?
+            type == 'TEXT'
         end
     end
 end

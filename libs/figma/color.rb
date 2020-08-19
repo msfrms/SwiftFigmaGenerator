@@ -10,5 +10,9 @@ module Figma
             @blue = raw['b']
             @alpha = raw['a']
         end
+
+        def id
+            "#{@red}:#{@green}:#{@blue}:#{@alpha}"
+        end
     end
 end
