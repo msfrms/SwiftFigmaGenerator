@@ -7,9 +7,9 @@ module Figma
 
         attr_reader :background_color
         
-        def initialize(raw)
-            super(raw)        
-            @children = raw['children'].map { |c| Node.new(c) }
+        def initialize(raw, parent)
+            super(raw, parent)        
+            @children = raw['children'].map { |c| Node.new(c, parent=self) }
             @background_color = Color.new(raw['backgroundColor'])
         end
     end

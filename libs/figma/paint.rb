@@ -9,7 +9,7 @@ module Figma
             @id = id
             @blend_mode = raw['blendMode']
             @type = raw['type']
-            @color = Color.new(raw['color'])
+            @color = Color.new(raw['color']) if raw['color'] != nil
         end
     end
 end

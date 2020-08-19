@@ -1,16 +1,16 @@
 
 module Figma
     class TextStyle
-
         class Decoration
             STRIKETHROUGH = "STRIKETHROUGH"
             UNDERLINE = "UNDERLINE"
         end
     
         attr_reader :id, 
-            :font_family, 
-            :font_weight, 
-            :font_size, 
+            :font_family,
+            :font_post_script_name,
+            :font_weight,
+            :font_size,
             :text_decoration, # STRIKETHROUGH, UNDERLINE, default: none
             :paragraph_spacing,
             :paragraph_indent,
@@ -22,6 +22,7 @@ module Figma
         def initialize(raw, id)
             @id = id
             @font_family = raw['fontFamily']
+            @font_post_script_name = raw['fontPostScriptName']
             @font_weight = raw['fontWeight']
             @font_size = raw['fontSize']
             @text_decoration = raw['textDecoration']
