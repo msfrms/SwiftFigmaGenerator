@@ -1,5 +1,5 @@
 require 'json'
-require 'http'
+require 'excon'
 require_relative 'file'
 
 module Figma
@@ -21,28 +21,36 @@ module Figma
             @key = key
         end
     
-        def client
-            HTTP.headers('X-Figma-Token' => '55196-8229ee5c-03d7-4382-a7b9-6c3b42d64b00')
+        def headers
+            {
+                'X-FIGMA-TOKEN' => '147057-e0e3fc9c-993c-4ccb-a61d-df3d54c3be9e'
+            }
         end
         
         def images(nodes)
             ids = nodes.map(&:id)
-            names = nodes.map(&:name)
-            json = JSON.parse(
-                client
-                    .get("https://api.figma.com/v1/images/#{@key}", :params => {
+            if not ids.empty? then
+                response = Excon
+                .get("https://api.figma.com/v1/images/#{@key}", 
+                    :query => {
                         :ids => ids.join(','),
                         :format => 'pdf'
-                    })
-                    .body
-                    .to_s
-            )
-            hash = nodes.map { |node| [node.id, node.name] }.to_h        
-            json['images'].map { |key, url| Icon.new(hash[key], url) }
+                    }, 
+                    :headers => headers
+                )
+                .body
+                .to_s
+
+                json = JSON.parse(response)            
+                hash = nodes.map { |node| [node.id, node.name] }.to_h
+                return json['images'].map { |key, url| Icon.new(hash[key], url) }
+            else
+                return []
+            end
         end
     
         def files
-            json = client.get("https://api.figma.com/v1/files/#{@key}")
+            json = Excon.get("https://api.figma.com/v1/files/#{@key}", :headers => headers).body            
             File.new(JSON.parse(json))
         end
     end

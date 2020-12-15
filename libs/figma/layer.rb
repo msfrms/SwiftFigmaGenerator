@@ -14,7 +14,7 @@ module Figma
         end
     
         def filter(name)
-            flatten.filter { |node| node.name.include?(name) }        
+            flatten.filter { |node| node.name.downcase.include?(name.downcase) }        
         end
     
         def flatten

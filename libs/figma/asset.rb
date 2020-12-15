@@ -98,7 +98,7 @@ module Figma
     end
 
     def export_icons(folder)
-        nodes = @api.files.document.filter('_icon')        
+        nodes = @api.files.document.filter('ic')        
         Namespace.new(folder).create
         @api.images(nodes).each do |icon|
             pdf = HTTP.get(icon.url).body            
